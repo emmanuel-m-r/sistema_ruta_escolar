@@ -1,4 +1,6 @@
-USE rutasanjose;
+CREATE SCHEMA `prueba`;
+
+USE `prueba`;
 
 CREATE TABLE `Usuario` (
   `Id_usuario` int PRIMARY KEY,
@@ -9,37 +11,32 @@ CREATE TABLE `Usuario` (
 );
 
 CREATE TABLE `Conductor` (
-  `Id_Conductor` int PRIMARY KEY,
+  `Num_documento` int PRIMARY KEY,
   `Nombre` varchar(255),
   `Apellido` varchar(255),
-  `Num_documento` varchar(255),
   `Id_ruta` int
 );
 
 CREATE TABLE `Estudiante` (
-  `Id_estudiante` int PRIMARY KEY,
+  `num_documento_estu` int PRIMARY KEY,
   `Nombre` varchar(255),
   `Apellido` varchar(255),
-  `Num_documento` varchar(255),
   `Tipo_doc` varchar(255),
-  `Id_acudiente` int,
   `Id_ruta` int,
   `Id_curso` int
 );
 
 CREATE TABLE `Acudiente` (
-  `Id_acudiente` int PRIMARY KEY,
+  `Num_documento` int PRIMARY KEY,
   `Nombre_acu` varchar(255),
   `Apellido_acu` varchar(255),
-  `Num_documento` varchar(255),
-  `Cel_emergencia` varchar(255),
-  `Parentesco` varchar(255)
+  `Cel_emergencia` varchar(255)
 );
 
 CREATE TABLE `Ruta` (
   `Id_ruta` int PRIMARY KEY,
   `Nombre` varchar(255),
-  `Id_conductor` int
+  `fk_doc_conductor` int
 );
 
 CREATE TABLE `PARADAS` (
@@ -55,36 +52,43 @@ CREATE TABLE `CURSO` (
   `Nombre_curso` varchar(255)
 );
 
-CREATE TABLE `ASISTENCIAS` (
+
+CREATE TABLE `prueba`.`acudiente_estudiante` (
+  `Num_doc_acu` INT NOT NULL,
+  `Num_doc_estu` INT NOT NULL,
+  PRIMARY KEY (`Num_doc_acu`, `Num_doc_estu`));
+
+CREATE TABLE `ASISTENCIAS` (			
   `Id_asistencias` int PRIMARY KEY,
-  `Id_estudiante` int,
-  `Id_usuario` int,
-  `Id_ruta` int,
+  `fk_doc_estudiante` int not null,
+  `Id_usuario` int not null,
+  `Id_ruta` int not null,
   `Fecha` date,
   `Hora_registro` time
 );
 
-CREATE TABLE `acudiente_estudiante` (
-  `Num_doc_acu` varchar(255),
-  `Num_doc_estu` varchar(255)
-);
+ALTER TABLE `asistencias` ADD FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`);
 
-ALTER TABLE `ASISTENCIAS` ADD FOREIGN KEY (`Id_usuario`) REFERENCES `Usuario` (`Id_usuario`);
 
-ALTER TABLE `Ruta` ADD FOREIGN KEY (`Id_conductor`) REFERENCES `Conductor` (`Id_Conductor`);
+ALTER TABLE asistencias
+ADD CONSTRAINT fk_id_ruta
+FOREIGN KEY (Id_ruta) REFERENCES ruta (id_ruta);
 
-ALTER TABLE `PARADAS` ADD FOREIGN KEY (`Id_ruta`) REFERENCES `Ruta` (`Id_ruta`);
+ALTER TABLE asistencias
+ADD CONSTRAINT fk_doc_estudiante
+FOREIGN KEY (fk_doc_estudiante) REFERENCES estudiante(num_documento_estu);
 
-ALTER TABLE `ASISTENCIAS` ADD FOREIGN KEY (`Id_ruta`) REFERENCES `Ruta` (`Id_ruta`);
+ALTER TABLE ruta
+ADD CONSTRAINT fk_doc_conductor
+FOREIGN KEY (fk_doc_conductor) REFERENCES conductor (Num_documento);
 
-ALTER TABLE `ASISTENCIAS` ADD FOREIGN KEY (`Id_estudiante`) REFERENCES `Estudiante` (`Id_estudiante`);
+ALTER TABLE `paradas` ADD FOREIGN KEY (`Id_ruta`) REFERENCES `ruta` (`Id_ruta`);
 
-ALTER TABLE `Estudiante` ADD FOREIGN KEY (`Id_curso`) REFERENCES `CURSO` (`Id_curso`);
+ALTER TABLE `estudiante` ADD FOREIGN KEY (`Id_curso`) REFERENCES `curso` (`Id_curso`);
 
-ALTER TABLE `Estudiante` ADD FOREIGN KEY (`Id_ruta`) REFERENCES `Ruta` (`Id_ruta`);
+ALTER TABLE `estudiante` ADD FOREIGN KEY (`Id_ruta`) REFERENCES `ruta` (`Id_ruta`);
 
-ALTER TABLE `acudiente_estudiante` ADD FOREIGN KEY (`Num_doc_acu`) REFERENCES `Acudiente` (`Num_documento`);
+ALTER TABLE `acudiente_estudiante` ADD FOREIGN KEY (`Num_doc_acu`) REFERENCES `acudiente` (`Num_documento`);
 
-ALTER TABLE `acudiente_estudiante` ADD FOREIGN KEY (`Num_doc_estu`) REFERENCES `Estudiante` (`Num_documento`);
+ALTER TABLE `acudiente_estudiante` ADD FOREIGN KEY (`Num_doc_estu`) REFERENCES `estudiante` (`Num_documento_estu`);
 
-ALTER TABLE `Acudiente` ADD FOREIGN KEY (`Id_acudiente`) REFERENCES `Estudiante` (`Id_acudiente`);
