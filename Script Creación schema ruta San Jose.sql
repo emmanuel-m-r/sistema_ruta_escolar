@@ -1,6 +1,4 @@
-CREATE SCHEMA `prueba`;
-
-USE `prueba`;
+USE rutasanjose;
 
 CREATE TABLE `Usuario` (
   `Id_usuario` int PRIMARY KEY,
