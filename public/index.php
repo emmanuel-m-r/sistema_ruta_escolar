@@ -12,10 +12,11 @@ $app = require __DIR__ . '/../config/app.php';
 $database = require __DIR__ . '/../config/database.php';
 
 //"importamos" la clase connection
+//Para probarlo antes de implementar la clase connection solo deben comentar las siguientes dos lineas
 use App\Database\Connection;
-//se comprobo la conexión al 
-
 Connection::connect($database);
+//se comprobo la conexión al servidor
+
 
 //PHP_EOL hace un salto de linea
 //Estamos imprimiendo el valor de name que vien desde nuestra variable $app que es un array
