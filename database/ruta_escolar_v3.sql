@@ -52,6 +52,8 @@ CREATE TABLE estudiante (
     segundo_nombre VARCHAR(45),
     apellido VARCHAR(45) NOT NULL,
     segundo_apellido VARCHAR(45),
+    fecha_nacimiento DATE NOT NULL,
+    edad int not null,
 
     fk_id_curso INT NOT NULL,
     fk_id_parada INT NOT NULL,
