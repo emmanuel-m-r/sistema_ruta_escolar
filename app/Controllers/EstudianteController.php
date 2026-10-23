@@ -1,29 +1,25 @@
 <?php
 
-namespace App\Models;
+namespace App\Controllers;
 
-use PDO;
+use App\Models\Estudiante;
+use App\Database\Connection;
 
-class Estudiante
+class EstudianteController
 {
-    //Atributo PDO
-    private PDO $conexion;
-
-    //Constructor que recibe un objeto PDO
-    public function __construct(PDO $conexion)
+    public function presentacion()
     {
-        $this->conexion = $conexion;
-    }
+        // Obtener la configuración de la base de datos
+        $config = require __DIR__ . '/../../config/database.php';
 
+        // Crear la conexión PDO
+        $conexion = Connection::connect($config);
 
-    public function obtenerTodos(): array
-    {
-        $sql = 'SELECT *
-                FROM estudiante
-                LIMIT 5';
-        //Variable que almacena la consulta que se hace a través de la conexión
-        $consulta = $this->conexion->query($sql);
-        //con fetcheAll() obtenemos todo lo que tiene la consulta sql como un array
-        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+        // Crear el modelo y consultar los estudiantes
+        $modeloEstudiante = new Estudiante($conexion);
+        $estudiantes = $modeloEstudiante->obtenerTodos();
+
+        // Cargar la vista y pasarle los estudiantes
+        require_once __DIR__ . '/../Views/estudiantes/presentacion.php';
     }
 }
