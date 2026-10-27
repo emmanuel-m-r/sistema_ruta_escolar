@@ -1,22 +1,39 @@
-<?php
+    <?php
 
-use App\Core\Router;
-use App\Controllers\EstudianteController;
-use App\Controllers\HomeController;
+    use App\Controllers\EstudianteController;
+    use App\Controllers\HomeController;
+    use App\Controllers\LoginController;
+    use App\Controllers\RegistroController;
 
-//$router = new Router();
 
-$router->get('/', [
-    HomeController::class,
-    'index'
-]);
+    $router->get('/', [
+        HomeController::class,
+        'index'
+    ]);
 
-$router->get('/estudiantes', [
-    EstudianteController::class,
-    'presentacion'
-]);
+    $router->get('/estudiantes', [
+        EstudianteController::class,
+        'presentacion'
+    ]);
 
-$router->post('/prueba-post',[
-    HomeController::class,
-    'index'
-]);
+    $router->get('/login', [
+    LoginController::class,
+    'inicio_login'
+    ]);
+
+    $router->post('/login',[
+    LoginController::class,
+    'autenticate'
+    ]);
+
+    $router->get('/registro',[
+    RegistroController::class,
+    'registro'
+    ]);
+
+    $router->post('/registro',[
+        RegistroController::class,
+        'registrar'
+    ]);
+
+?>
