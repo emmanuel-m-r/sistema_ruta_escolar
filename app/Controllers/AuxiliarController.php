@@ -13,7 +13,7 @@ class AuxiliarController
     public function registro(): void
     {
         try {
-            $config = require dirname(__DIR__, 2) . '/../../config/database.php';
+            $config = require dirname(__DIR__, 2) . '/config/database.php';
 
             $conexion = Connection::connect($config);
 
