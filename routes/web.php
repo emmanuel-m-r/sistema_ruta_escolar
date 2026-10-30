@@ -1,9 +1,9 @@
     <?php
 
-    use App\Controllers\EstudianteController;
-    use App\Controllers\HomeController;
-    use App\Controllers\LoginController;
-    use App\Controllers\RegistroController;
+use App\Core\Router;
+use App\Controllers\EstudianteController;
+use App\Controllers\HomeController;
+use App\Controllers\AuxiliarController;
 
 
     $router->get('/', [
@@ -16,24 +16,17 @@
         'presentacion'
     ]);
 
-    $router->get('/login', [
-    LoginController::class,
-    'inicio_login'
-    ]);
+$router->post('/prueba-post',[
+    HomeController::class,
+    'index'
+]);
 
-    $router->post('/login',[
-    LoginController::class,
-    'autenticate'
-    ]);
-
-    $router->get('/registro',[
-    RegistroController::class,
+$router->get('/auxiliar/registro', [
+    AuxiliarController::class,
     'registro'
     ]);
 
-    $router->post('/registro',[
-        RegistroController::class,
-        'registrar'
+    $router->post('/auxiliar/registro', [
+    AuxiliarController::class,
+    'registrar'
     ]);
-
-?>
