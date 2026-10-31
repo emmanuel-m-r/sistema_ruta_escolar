@@ -14,7 +14,7 @@ class LoginController
 
     public function autenticate():void
     {
-        require_once __DIR__.'/../Views/auth/login.php';
+
         //Recibimos los datos del formulario.
         $correo= trim($_POST['correo']??'');
         $contrasena = trim($_POST['contrasena']??'');
@@ -122,7 +122,7 @@ class LoginController
     }
     @session_destroy();
     //Esto hay que actualizarlo a todas las rutas que tengamos en las que se vaya a cerrar sesión (modulos de estudiante, rutas, etc)
-    require_once __DIR__.'/../Views/inicio/home.php';
+    
     // Redirigimos al usuario al login.
     header('Location: /sistema_ruta_escolar/public/login');
     exit;
