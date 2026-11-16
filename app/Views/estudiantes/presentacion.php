@@ -5,6 +5,7 @@
     <title>Estudiantes</title>
 </head>
 <body>
+    <?php $prueba= require_once __DIR__.'/../components/sidebar.php' ; ?>
 
     <h1>Listado de estudiantes</h1>
 
@@ -18,14 +19,6 @@
         }
     }   
     ?>
-
-    <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Estudiantes</title>
-</head>
-<body>
 
     <h1>Listado de estudiantes</h1>
 
@@ -60,10 +53,6 @@
         <p>No hay estudiantes registrados.</p>
 
     <?php endif; ?>
-
-</body>
-</html>
-
 
 </body>
 </html>
