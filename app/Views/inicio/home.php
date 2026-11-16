@@ -6,6 +6,9 @@
     <title>Inicio</title>
 </head>
 <body>
+    <?php require_once __DIR__.'/../components/sidebar.php' ?>
+
+
     <form action="logout" method="post">
         <button type="submit">Cerrar Sesión</button>
     </form>    
