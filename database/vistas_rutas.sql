@@ -32,3 +32,20 @@ LEFT JOIN (
     INNER JOIN jornada j ON a.fk_jornada = j.id_jornada
     WHERE j.tipo_recorrido = 'REGRESO' AND j.fecha = CURRENT_DATE
 ) asis_regreso ON e.num_doc_estu = asis_regreso.fk_num_doc_estu;
+
+-- Vista Tarjetas ruta
+
+CREATE VIEW vista_tarjetas_rutas AS
+SELECT  r.nombre AS Ruta,
+	    c.nombres AS Conductor,
+		u.nombre AS Auxiliar,
+        p.nombre AS Parada,
+		COUNT(num_doc_estu) AS Estudiantes
+FROM ruta r
+JOIN conductor c ON r.fk_num_doc_conductor=c.num_doc_conductor
+LEFT JOIN auxiliar a ON r.id_ruta = a.fk_id_ruta
+LEFT JOIN usuario u ON a.fk_id_usuario = u.id_usuario
+JOIN parada p ON r.id_ruta = p.fk_id_ruta
+LEFT JOIN estudiante e ON p.id_parada = e.fk_id_parada
+GROUP BY c.num_doc_conductor, u.id_usuario, p.id_parada
+ORDER BY p.km_referencia DESC;
